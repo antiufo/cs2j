@@ -58,12 +58,12 @@ namespace Twiglet.CS2J.Translator.Transform
 
         protected void Error(int line, String s)
         {
-            Console.Error.WriteLine("{0}({1}) error: {2}", Filename, line, s);
+            throw new Exception(String.Format("{0}({1}) error: {2}", Filename, line, s));
         }
 
         protected void Error(String s)
         {
-            Console.Error.WriteLine("{0} error: {1}", Filename, s);
+           throw new Exception(String.Format("{0} error: {1}", Filename, s));
         }
 
         protected void Warning(int line, String s)

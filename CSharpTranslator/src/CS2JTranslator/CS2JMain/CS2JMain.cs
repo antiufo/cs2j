@@ -401,6 +401,8 @@ namespace Twiglet.CS2J.Translator
             {
                 Console.Error.WriteLine("exception: " + e);
                 Console.Error.WriteLine(e.StackTrace); // so we can get stack trace
+                // don't continue on errors
+                Environment.Exit(1);
             }
             double elapsedTime = ((DateTime.Now.Ticks - startTime) / TimeSpan.TicksPerMillisecond) / 1000.0;
             if (cfg.Verbosity >= 1)
@@ -426,16 +428,8 @@ namespace Twiglet.CS2J.Translator
                 else if ((Path.GetFileName(canonicalPath).Length > ext.Length) && canonicalPath.Substring(canonicalPath.Length - ext.Length).Equals(ext))
                 {
                     if (cfg.Verbosity >= 2) Console.WriteLine("   " + canonicalPath);
-                    try
-                    {
-                        
-                        processFile(canonicalPath);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Error.WriteLine("\nCannot process file: " + canonicalPath);
-                        Console.Error.WriteLine("exception: " + e);
-                    }
+
+                    processFile(canonicalPath);
                 }
             }
         }
@@ -709,7 +703,7 @@ namespace Twiglet.CS2J.Translator
                     {
                        if (cfg.DebugLevel >= 1) Console.Out.WriteLine("Writing out {0}", javaFName);
                        StreamWriter javaW = new StreamWriter(javaFName);
-                       javaW.Write(outputMaker.compilation_unit().ToString());
+                       javaW.Write(outputMaker.compilation_unit().ToString().Replace("//CS2J:Java code:", ""));
                        javaW.Close();
                     }
                     else

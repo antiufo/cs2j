@@ -128,6 +128,7 @@ statement(statement) ::= <<
 
 annotation(modifiers, comments, attributes, name, body) ::= <<
 <comments; separator=""\n"">
+@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
 <modifiers>@interface <name>
 {
     <body>
