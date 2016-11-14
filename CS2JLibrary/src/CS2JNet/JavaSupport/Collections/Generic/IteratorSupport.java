@@ -56,6 +56,7 @@ public class IteratorSupport<T> implements Iterator<T>{
 				next = myEnum.getCurrent();
 		} catch (Exception e) {
 			hasNext = false;
+			throw new RuntimeException(e);
 		}
 	}
 
